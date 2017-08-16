@@ -1,0 +1,45 @@
+.row {
+
+  @mixin clearfix;
+  height: 100px;
+  border: 1px solid blue;
+
+  &--gutters {
+    margin-right: -65px;
+  }
+
+  &--gutters > div {
+    padding-right: 65px;
+  }
+
+  &__large-4{
+    height: 100px;
+    border: 1px solid red;
+  }
+
+  @mixin atMedium {
+    &__large-4 {
+      float: left;
+      width: 50%;
+    }
+  }
+
+  @mixin atLarge {
+    &__large-4 {
+      float: left;
+      width: 33.33%;
+    }
+  }
+  
+  /* Begin Equal Height Rules */
+  &--equal-height-at-medium {
+    @mixin atMedium {
+      display: flex;
+    }
+
+    & > div {
+      float: none;
+      display: flex;
+    }
+  }
+}
