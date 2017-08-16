@@ -453,6 +453,7 @@ template {
 body {
   font-family: 'Roboto', sans-serif;
   color: #333;
+  padding: 20px;
 }
 
 img {
@@ -511,11 +512,6 @@ a {
   }
   }
 
-.row {
-  height: 100px;
-  border: 1px solid blue;
-}
-
 .row::after {
     content: "";
     clear: both;
@@ -528,11 +524,6 @@ a {
 
 .row--gutters > div {
     padding-right: 65px;
-  }
-
-.row__large-4{
-    height: 100px;
-    border: 1px solid red;
   }
 
 @media (min-width: 800px) {
