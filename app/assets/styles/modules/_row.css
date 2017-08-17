@@ -1,39 +1,34 @@
 .row {
-
-  @mixin clearfix;
-
-  &--gutters {
-    margin-right: -65px;
-  }
-
-  &--gutters > div {
-    padding-right: 65px;
-  }
-
-
-  @mixin atMedium {
-    &__large-4 {
-      float: left;
-      width: 50%;
+    @mixin clearfix;
+    &--gutters {
+        margin-right: -65px;
     }
-  }
-
-  @mixin atLarge {
-    &__large-4 {
-      float: left;
-      width: 33.33%;
+    &--gutters>div {
+        padding-right: 65px;
     }
-  }
-  
-  /* Begin Equal Height Rules */
-  &--equal-height-at-medium {
+    &__large-4 {
+        margin-bottom: 1rem;
+    }
     @mixin atMedium {
-      display: flex;
+        &__large-4 {
+            float: left;
+            width: 50%;
+        }
     }
-
-    & > div {
-      float: none;
-      display: flex;
+    @mixin atLarge {
+        &__large-4 {
+            float: left;
+            width: 33.33%;
+        }
     }
-  }
+    /* Begin Equal Height Rules */
+    &--equal-height-at-medium {
+        @mixin atMedium {
+            display: flex;
+        }
+        &>div {
+            float: none;
+            display: flex;
+        }
+    }
 }

@@ -519,25 +519,29 @@ a {
   }
 
 .row--gutters {
-    margin-right: -65px;
-  }
+        margin-right: -65px;
+    }
 
-.row--gutters > div {
-    padding-right: 65px;
-  }
+.row--gutters>div {
+        padding-right: 65px;
+    }
+
+.row__large-4 {
+        margin-bottom: 1rem;
+    }
 
 @media (min-width: 800px) {
-    .row__large-4 {
-      float: left;
-      width: 50%;
-    }
+        .row__large-4 {
+            float: left;
+            width: 50%;
+        }
   }
 
 @media (min-width: 1010px) {
-    .row__large-4 {
-      float: left;
-      width: 33.33%;
-    }
+        .row__large-4 {
+            float: left;
+            width: 33.33%;
+        }
   }
 
 /* Begin Equal Height Rules */
@@ -545,18 +549,18 @@ a {
 @media (min-width: 800px) {
 
 .row--equal-height-at-medium {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex
-  }
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex
+    }
   }
 
-.row--equal-height-at-medium > div {
-      float: none;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-    }
+.row--equal-height-at-medium>div {
+            float: none;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
 
 .wrapper {
   overflow: hidden;
