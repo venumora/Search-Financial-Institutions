@@ -10349,6 +10349,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var $ = __webpack_require__(0);
+
+var SearchCatText = ["Unknown types", "Banks", "Investments", "Loans", "Credit cards", "Mortgages"];
+
 var ResultsContainer = function (_React$Component) {
     _inherits(ResultsContainer, _React$Component);
 
@@ -10359,27 +10363,45 @@ var ResultsContainer = function (_React$Component) {
     }
 
     _createClass(ResultsContainer, [{
-        key: "render",
+        key: 'render',
         value: function render() {
-            var products = {
-                types: [{
-                    rows: {
-                        columns: [{
-                            products: []
-                        }]
-                    }
-                }]
-            };
+            var _this2 = this;
+
+            var productTypes = [];
+            this.props.filteredProducts.products.forEach(function (product) {
+                var exP = $.grep(productTypes, function (p) {
+                    return p.id === product.typeId;
+                });
+                if (!exP.length) {
+                    productTypes.push({ id: product.typeId, count: 1 });
+                } else {
+                    exP[0].count++;
+                }
+            });
+            productTypes.sort(function (a, b) {
+                return b.count - a.count;
+            });
             return React.createElement(
-                "div",
-                { className: "wrapper wrapper--no-padding-until-large" },
-                React.createElement(
-                    "div",
-                    { className: "row row--gutters row--equal-height-at-large row--gutters" },
-                    this.props.filteredProducts.products.map(function (result, index) {
-                        return React.createElement(_ResultCard2.default, { key: index, result: result });
-                    })
-                )
+                'div',
+                { className: 'wrapper wrapper--no-padding-until-large' },
+                productTypes.map(function (type) {
+                    return React.createElement(
+                        'div',
+                        { className: 'row row--gutters row--gutters' },
+                        React.createElement(
+                            'h2',
+                            null,
+                            'You have got ',
+                            type.count,
+                            ' ',
+                            SearchCatText[type.id],
+                            ' related results..'
+                        ),
+                        _this2.props.filteredProducts.products.map(function (result, index) {
+                            return result.typeId === type.id && React.createElement(_ResultCard2.default, { key: index, result: result });
+                        })
+                    );
+                })
             );
         }
     }]);
@@ -10434,7 +10456,7 @@ var ResultCard = function (_React$Component) {
             React.createElement(
               "h5",
               { className: "result-card__type" },
-              this.props.result.type
+              this.props.result.type.replace("_", " ")
             )
           ),
           React.createElement(

@@ -1,5 +1,6 @@
 .result-card {
     border: 2px solid $mainOrange;
+    min-height: 200px;
     &__bank {
         background-color: $bankColor;
     }

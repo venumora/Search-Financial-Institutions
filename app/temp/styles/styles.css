@@ -590,24 +590,6 @@ h5 {
         }
   }
 
-/* Begin Equal Height Rules */
-
-@media (min-width: 1000px) {
-
-.row--equal-height-at-medium {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex
-    }
-  }
-
-.row--equal-height-at-medium>div {
-            float: none;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-        }
-
 .wrapper {
   overflow: hidden;
   padding-left: 18px;
@@ -696,6 +678,7 @@ h5 {
 
 .result-card {
     border: 2px solid #d59541;
+    min-height: 200px;
 }
 
 .result-card__bank {
