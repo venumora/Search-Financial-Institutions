@@ -68,7 +68,7 @@ class AutoFlyout extends React.Component {
       <div className={(this.props.isOpen && this.state.isOpen) ? 'flyout show' : 'flyout hide'}>
         <ul className="flyout__unordered">
           {
-            this.props.results.products.slice(0, 10).map(result =>
+            this.props.results.products.slice(0, 15).map(result =>
               <li key={result.id}>
                 <a href="#" onClick={this.handleClick} onFocus={this.handleFocus} onKeyDown={this.handleKeyDown} id={"searchResult" + result.id}>{result.name}
                 </a>

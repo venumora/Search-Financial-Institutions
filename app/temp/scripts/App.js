@@ -10290,7 +10290,7 @@ var AutoFlyout = function (_React$Component) {
         React.createElement(
           'ul',
           { className: 'flyout__unordered' },
-          this.props.results.products.slice(0, 10).map(function (result) {
+          this.props.results.products.slice(0, 15).map(function (result) {
             return React.createElement(
               'li',
               { key: result.id },
