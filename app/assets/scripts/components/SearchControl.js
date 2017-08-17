@@ -22,13 +22,7 @@ class SearchControl extends React.Component {
   }
   handleKeyDown = (event) => {
     let that = this;
-    // Show or hide dropdown when user starts typing
-    if (this.props.filteredProducts.products.length ||
-      event.target.value.length === 0) {
-      this.refs.child.showFlyout();
-    } else {
-      this.refs.child.hideFlyout();
-    }
+    this.refs.child.showFlyout();
     // When down arrow is press while typing
     // focus to first item in the list.
     if (40 === event.which) {
@@ -76,11 +70,16 @@ class SearchControl extends React.Component {
         dataType: "json",
         url: "https://api.myjson.com/bins/etsbt",
         success: (result) => {
-          const products = result.products.map(function (rObj, index) {
+          let products = result.products.map(function (rObj, index) {
             rObj.id = index + 1;
             rObj.typeId = Types[rObj.type] || 0;
             return rObj;
           });
+          // Remove duplicates
+          products = products.filter((product, index, self) =>
+            self.findIndex(t => t.name === product.name
+              && t.type === product.type
+              && t.url === product.url) === index);
           catalog.products = products;
           catalog.products.sort(function (a, b) {
             let nameA = a.name.toUpperCase();

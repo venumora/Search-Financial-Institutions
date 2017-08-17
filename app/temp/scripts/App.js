@@ -9916,10 +9916,6 @@ var _SearchControl = __webpack_require__(2);
 
 var _SearchControl2 = _interopRequireDefault(_SearchControl);
 
-var _ResultsContainer = __webpack_require__(5);
-
-var _ResultsContainer2 = _interopRequireDefault(_ResultsContainer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9956,22 +9952,17 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return React.createElement(
-        'div',
-        { className: 'wrapper' },
+        "div",
+        { className: "wrapper" },
         React.createElement(
-          'div',
-          { id: 'searchControlWrapper', className: 'search-area' },
+          "div",
+          { id: "searchControlWrapper", className: "search-area" },
           React.createElement(_SearchControl2.default, { catalog: this.state.catalog,
             filteredProducts: this.state.filteredProducts,
             setAppStateCallback: this.setAppState })
-        ),
-        React.createElement(
-          'div',
-          { id: 'searchResults', className: 'page-section page-section--no-b-padding-until-large' },
-          React.createElement(_ResultsContainer2.default, { filteredProducts: this.state.filteredProducts })
         )
       );
     }
@@ -10033,12 +10024,7 @@ var SearchControl = function (_React$Component) {
 
     _this.handleKeyDown = function (event) {
       var that = _this;
-      // Show or hide dropdown when user starts typing
-      if (_this.props.filteredProducts.products.length || event.target.value.length === 0) {
-        _this.refs.child.showFlyout();
-      } else {
-        _this.refs.child.hideFlyout();
-      }
+      _this.refs.child.showFlyout();
       // When down arrow is press while typing
       // focus to first item in the list.
       if (40 === event.which) {
@@ -10092,6 +10078,12 @@ var SearchControl = function (_React$Component) {
               rObj.id = index + 1;
               rObj.typeId = Types[rObj.type] || 0;
               return rObj;
+            });
+            // Remove duplicates
+            products = products.filter(function (product, index, self) {
+              return self.findIndex(function (t) {
+                return t.name === product.name && t.type === product.type && t.url === product.url;
+              }) === index;
             });
             catalog.products = products;
             catalog.products.sort(function (a, b) {
@@ -10348,168 +10340,6 @@ module.exports = function (module) {
 	}
 	return module;
 };
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ResultCard = __webpack_require__(6);
-
-var _ResultCard2 = _interopRequireDefault(_ResultCard);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var $ = __webpack_require__(0);
-
-var SearchCatText = ["Unknown types", "Banks", "Investments", "Loans", "Credit cards", "Mortgages"];
-
-// Search results container component
-
-var ResultsContainer = function (_React$Component) {
-    _inherits(ResultsContainer, _React$Component);
-
-    function ResultsContainer(props) {
-        _classCallCheck(this, ResultsContainer);
-
-        return _possibleConstructorReturn(this, (ResultsContainer.__proto__ || Object.getPrototypeOf(ResultsContainer)).call(this, props));
-    }
-
-    _createClass(ResultsContainer, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var productTypes = [];
-            // Get the list of product types (Banks, Loans etc) also the count of
-            // results
-            this.props.filteredProducts.products.forEach(function (product) {
-                var exP = $.grep(productTypes, function (p) {
-                    return p.id === product.typeId;
-                });
-                if (!exP.length) {
-                    productTypes.push({ id: product.typeId, count: 1 });
-                } else {
-                    exP[0].count++;
-                }
-            });
-            // Sort results in descending order of the count
-            productTypes.sort(function (a, b) {
-                return b.count - a.count;
-            });
-            return React.createElement(
-                'div',
-                { className: 'wrapper wrapper--no-padding-until-large' },
-                productTypes.map(function (type) {
-                    return React.createElement(
-                        'div',
-                        { className: 'row row--gutters row--gutters' },
-                        React.createElement(
-                            'h2',
-                            null,
-                            'You have got ',
-                            type.count,
-                            ' result(s) related to ',
-                            SearchCatText[type.id]
-                        ),
-                        _this2.props.filteredProducts.products.map(function (result, index) {
-                            return result.typeId === type.id && React.createElement(_ResultCard2.default, { key: index, result: result });
-                        })
-                    );
-                })
-            );
-        }
-    }]);
-
-    return ResultsContainer;
-}(React.Component);
-
-exports.default = ResultsContainer;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// to get the classes to different product types.
-var ClassTypes = ["result-card__default", "result-card__bank", "result-card__invest", "result-card__loan", "result-card__cc", "result-card__mortgage"];
-
-// Each results in search result
-
-var ResultCard = function (_React$Component) {
-  _inherits(ResultCard, _React$Component);
-
-  function ResultCard(props) {
-    _classCallCheck(this, ResultCard);
-
-    return _possibleConstructorReturn(this, (ResultCard.__proto__ || Object.getPrototypeOf(ResultCard)).call(this, props));
-  }
-
-  _createClass(ResultCard, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        { className: "row__large-4" },
-        React.createElement(
-          "div",
-          { className: "result-card" },
-          React.createElement(
-            "div",
-            { className: ClassTypes[this.props.result.typeId] },
-            React.createElement(
-              "h5",
-              { className: "result-card__type" },
-              this.props.result.type.replace("_", " ")
-            )
-          ),
-          React.createElement(
-            "h3",
-            { className: "result-card__title" },
-            this.props.result.name
-          ),
-          React.createElement(
-            "a",
-            { target: "_blank", className: "show result-card__link", href: this.props.result.url || '#' },
-            "Check out more on their website!!"
-          )
-        )
-      );
-    }
-  }]);
-
-  return ResultCard;
-}(React.Component);
-
-exports.default = ResultCard;
 
 /***/ })
 /******/ ]);

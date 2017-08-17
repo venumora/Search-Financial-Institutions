@@ -1,5 +1,4 @@
 import SearchControl from './components/SearchControl.js';
-import ResultsContainer from './components/ResultsContainer.js';
 
 // Main app component
 // initializes all other components
@@ -28,9 +27,6 @@ class App extends React.Component {
           <SearchControl catalog={this.state.catalog}
             filteredProducts={this.state.filteredProducts}
             setAppStateCallback={this.setAppState} />
-        </div>
-        <div id="searchResults" className="page-section page-section--no-b-padding-until-large">
-          <ResultsContainer filteredProducts={this.state.filteredProducts} />
         </div>
       </div>
     );
