@@ -26,7 +26,7 @@ class ResultsContainer extends React.Component {
             <div className="wrapper wrapper--no-padding-until-large">
                 {productTypes.map((type) =>
                     <div className="row row--gutters row--gutters">
-                        <h2>You have got {type.count} {SearchCatText[type.id]} related results..</h2>
+                        <h2>You have got {type.count} result(s) related to {SearchCatText[type.id]}</h2>
                         {
                             this.props.filteredProducts.products.map(
                                 (result, index) => result.typeId === type.id && <ResultCard key={index} result={result} />

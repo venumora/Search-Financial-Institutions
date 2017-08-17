@@ -10393,9 +10393,8 @@ var ResultsContainer = function (_React$Component) {
                             null,
                             'You have got ',
                             type.count,
-                            ' ',
-                            SearchCatText[type.id],
-                            ' related results..'
+                            ' result(s) related to ',
+                            SearchCatText[type.id]
                         ),
                         _this2.props.filteredProducts.products.map(function (result, index) {
                             return result.typeId === type.id && React.createElement(_ResultCard2.default, { key: index, result: result });
