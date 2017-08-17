@@ -1,5 +1,6 @@
 var $ = require('jquery');
 import AutoFlyout from './AutoFlyout.js';
+// To represent product types.
 const Types = {
   "BANK": 1,
   "INVESTMENT": 2,
@@ -21,12 +22,15 @@ class SearchControl extends React.Component {
   }
   handleKeyDown = (event) => {
     let that = this;
+    // Show or hide dropdown when user starts typing
     if (this.props.filteredProducts.products.length ||
-        event.target.value.length === 0) {
+      event.target.value.length === 0) {
       this.refs.child.showFlyout();
     } else {
       this.refs.child.hideFlyout();
     }
+    // When down arrow is press while typing
+    // focus to first item in the list.
     if (40 === event.which) {
       $(event.target).next("div").find('a:first').focus();
       event.preventDefault();
@@ -47,6 +51,7 @@ class SearchControl extends React.Component {
       products: []
     },
       key = searchKey.trim().toLowerCase();
+    // filter products based on the key
     if (key) {
       filteredProducts.products =
         this.props.catalog.products.filter(
@@ -66,6 +71,7 @@ class SearchControl extends React.Component {
     searchKey = searchKey || '';
     this.setState({ searchKey });
     if (!this.props.catalog.products.length) {
+      // ajax call to get the products
       $.ajax({
         dataType: "json",
         url: "https://api.myjson.com/bins/etsbt",
@@ -91,6 +97,7 @@ class SearchControl extends React.Component {
         }
       });
     } else {
+      // if products already exists directly filer.
       that.filterBasedOnKey(searchKey);
     }
   }
@@ -107,7 +114,7 @@ class SearchControl extends React.Component {
           Yay!! You have found what exactly you want</h5>}
         {(noOfProducts === 0 && !this.state.searchKey.length) && <h5>
           Go ahead!!</h5>}
-                  {(noOfProducts === 0 && this.state.searchKey.length !== 0) && <h5>
+        {(noOfProducts === 0 && this.state.searchKey.length !== 0) && <h5>
           Hard luck !! No results for <span className="red" >{this.state.searchKey}</span></h5>}
         <input className="search-area__input" type="text" role="search" placeholder="Search name or URL!!"
           value={this.state.searchKey}

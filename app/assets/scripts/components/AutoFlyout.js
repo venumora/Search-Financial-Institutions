@@ -1,5 +1,6 @@
 var $ = require('jquery');
 
+// Search drop down component
 class AutoFlyout extends React.Component {
   constructor(props) {
     super(props);
@@ -10,27 +11,32 @@ class AutoFlyout extends React.Component {
       isOpen: false
     }
     let that = this;
+    // handles document click and closes drop down
     $(document).click(function () {
       that.hideFlyout();
     });
   }
+  // show drop down
   showFlyout = () => {
-     this.setState({isOpen: true});
+    this.setState({ isOpen: true });
   }
+  // hide drop down
   hideFlyout = () => {
-     this.setState({isOpen: false});  
+    this.setState({ isOpen: false });
   }
   handleClick = (event) => {
     this.props.setSearchKeyState(event);
-    this.hideFlyout();    
+    this.hideFlyout();
     event.preventDefault();
   }
   handleFocus = (event) => {
     $(".focused").removeClass('focused');
     $(event.target).parent('li').addClass('focused');
   }
+  // Handles search results keyboard accessibility.
   handleKeyDown = (event) => {
     let target = $(event.target);
+    // Up arrow, focuses previous item and rotates when reaches first item.
     if (38 === event.which) {
       let prevLi = target.parent('li').prev('li');
       if (prevLi.length) {
@@ -40,6 +46,7 @@ class AutoFlyout extends React.Component {
       }
       event.preventDefault();
     } else if (40 === event.which) {
+      // Down arrow, focuses next item and rotates when reaches last item.
       let nextLi = target.parent('li').next('li');
       if (nextLi.length) {
         nextLi.find('a').focus();
@@ -48,9 +55,11 @@ class AutoFlyout extends React.Component {
       }
       event.preventDefault();
     } else if (13 === event.which) {
+      // Enter key sets the state.
       this.handleClick(event);
       event.preventDefault();
     } else if (27 === event.which) {
+      // Esc closes the dropdown
       this.hideFlyout();
     }
   }

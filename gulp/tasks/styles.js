@@ -6,6 +6,7 @@ nested = require('postcss-nested'),
 cssImport = require('postcss-import'),
 mixins = require('postcss-mixins');
 
+// Converts nested, variables and auto prefixes css.
 gulp.task('styles', function() {
   return gulp.src('./app/assets/styles/styles.css')
     .pipe(postcss([cssImport, mixins, cssvars, nested, autoprefixer]))

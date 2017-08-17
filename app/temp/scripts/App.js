@@ -9928,6 +9928,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// Main app component
+// initializes all other components
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -9978,6 +9980,9 @@ var App = function (_React$Component) {
   return App;
 }(React.Component);
 
+// render App component in main section
+
+
 ReactDOM.render(React.createElement(App, null), document.getElementById('main'));
 
 exports.default = App;
@@ -10009,6 +10014,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var $ = __webpack_require__(0);
 
+// To represent product types.
 var Types = {
   "BANK": 1,
   "INVESTMENT": 2,
@@ -10027,11 +10033,14 @@ var SearchControl = function (_React$Component) {
 
     _this.handleKeyDown = function (event) {
       var that = _this;
+      // Show or hide dropdown when user starts typing
       if (_this.props.filteredProducts.products.length || event.target.value.length === 0) {
         _this.refs.child.showFlyout();
       } else {
         _this.refs.child.hideFlyout();
       }
+      // When down arrow is press while typing
+      // focus to first item in the list.
       if (40 === event.which) {
         $(event.target).next("div").find('a:first').focus();
         event.preventDefault();
@@ -10054,6 +10063,7 @@ var SearchControl = function (_React$Component) {
         products: []
       },
           key = searchKey.trim().toLowerCase();
+      // filter products based on the key
       if (key) {
         filteredProducts.products = _this.props.catalog.products.filter(function (product) {
           return product.name.toLowerCase().indexOf(key) !== -1 || product.type.toLowerCase().indexOf(key) !== -1 || product.url.toLowerCase().indexOf(key) !== -1;
@@ -10073,6 +10083,7 @@ var SearchControl = function (_React$Component) {
       searchKey = searchKey || '';
       this.setState({ searchKey: searchKey });
       if (!this.props.catalog.products.length) {
+        // ajax call to get the products
         $.ajax({
           dataType: "json",
           url: "https://api.myjson.com/bins/etsbt",
@@ -10098,6 +10109,7 @@ var SearchControl = function (_React$Component) {
           }
         });
       } else {
+        // if products already exists directly filer.
         that.filterBasedOnKey(searchKey);
       }
     };
@@ -10196,6 +10208,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var $ = __webpack_require__(0);
 
+// Search drop down component
+
 var AutoFlyout = function (_React$Component) {
   _inherits(AutoFlyout, _React$Component);
 
@@ -10225,6 +10239,7 @@ var AutoFlyout = function (_React$Component) {
 
     _this.handleKeyDown = function (event) {
       var target = $(event.target);
+      // Up arrow, focuses previous item and rotates when reaches first item.
       if (38 === event.which) {
         var prevLi = target.parent('li').prev('li');
         if (prevLi.length) {
@@ -10234,6 +10249,7 @@ var AutoFlyout = function (_React$Component) {
         }
         event.preventDefault();
       } else if (40 === event.which) {
+        // Down arrow, focuses next item and rotates when reaches last item.
         var nextLi = target.parent('li').next('li');
         if (nextLi.length) {
           nextLi.find('a').focus();
@@ -10242,9 +10258,11 @@ var AutoFlyout = function (_React$Component) {
         }
         event.preventDefault();
       } else if (13 === event.which) {
+        // Enter key sets the state.
         _this.handleClick(event);
         event.preventDefault();
       } else if (27 === event.which) {
+        // Esc closes the dropdown
         _this.hideFlyout();
       }
     };
@@ -10256,11 +10274,18 @@ var AutoFlyout = function (_React$Component) {
       isOpen: false
     };
     var that = _this;
+    // handles document click and closes drop down
     $(document).click(function () {
       that.hideFlyout();
     });
     return _this;
   }
+  // show drop down
+
+  // hide drop down
+
+  // Handles search results keyboard accessibility.
+
 
   _createClass(AutoFlyout, [{
     key: 'render',
@@ -10353,6 +10378,8 @@ var $ = __webpack_require__(0);
 
 var SearchCatText = ["Unknown types", "Banks", "Investments", "Loans", "Credit cards", "Mortgages"];
 
+// Search results container component
+
 var ResultsContainer = function (_React$Component) {
     _inherits(ResultsContainer, _React$Component);
 
@@ -10368,6 +10395,8 @@ var ResultsContainer = function (_React$Component) {
             var _this2 = this;
 
             var productTypes = [];
+            // Get the list of product types (Banks, Loans etc) also the count of
+            // results
             this.props.filteredProducts.products.forEach(function (product) {
                 var exP = $.grep(productTypes, function (p) {
                     return p.id === product.typeId;
@@ -10378,6 +10407,7 @@ var ResultsContainer = function (_React$Component) {
                     exP[0].count++;
                 }
             });
+            // Sort results in descending order of the count
             productTypes.sort(function (a, b) {
                 return b.count - a.count;
             });
@@ -10429,7 +10459,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// to get the classes to different product types.
 var ClassTypes = ["result-card__default", "result-card__bank", "result-card__invest", "result-card__loan", "result-card__cc", "result-card__mortgage"];
+
+// Each results in search result
 
 var ResultCard = function (_React$Component) {
   _inherits(ResultCard, _React$Component);

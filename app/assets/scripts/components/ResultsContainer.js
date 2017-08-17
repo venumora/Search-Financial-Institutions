@@ -7,12 +7,15 @@ const SearchCatText = ["Unknown types",
     "Credit cards",
     "Mortgages"]
 
+// Search results container component
 class ResultsContainer extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
         let productTypes = [];
+        // Get the list of product types (Banks, Loans etc) also the count of
+        // results
         this.props.filteredProducts.products.forEach(function (product) {
             let exP = $.grep(productTypes, function (p) { return p.id === product.typeId });
             if (!exP.length) {
@@ -21,6 +24,7 @@ class ResultsContainer extends React.Component {
                 exP[0].count++;
             }
         });
+        // Sort results in descending order of the count
         productTypes.sort(function (a, b) { return b.count - a.count });
         return (
             <div className="wrapper wrapper--no-padding-until-large">

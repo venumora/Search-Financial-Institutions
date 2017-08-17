@@ -1,3 +1,4 @@
+// to get the classes to different product types.
 const ClassTypes = [
   "result-card__default",
   "result-card__bank",
@@ -7,6 +8,7 @@ const ClassTypes = [
   "result-card__mortgage"
 ];
 
+// Each results in search result
 class ResultCard extends React.Component {
   constructor(props) {
     super(props);

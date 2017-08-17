@@ -1,6 +1,8 @@
 import SearchControl from './components/SearchControl.js';
 import ResultsContainer from './components/ResultsContainer.js';
 
+// Main app component
+// initializes all other components
 class App extends React.Component {
 
   constructor(props) {
@@ -21,20 +23,21 @@ class App extends React.Component {
   }
   render() {
     return (
-    <div className="wrapper">
+      <div className="wrapper">
         <div id="searchControlWrapper" className="search-area">
           <SearchControl catalog={this.state.catalog}
-                         filteredProducts={this.state.filteredProducts} 
-                         setAppStateCallback={this.setAppState}/>          
+            filteredProducts={this.state.filteredProducts}
+            setAppStateCallback={this.setAppState} />
         </div>
         <div id="searchResults" className="page-section page-section--no-b-padding-until-large">
           <ResultsContainer filteredProducts={this.state.filteredProducts} />
         </div>
-    </div>
+      </div>
     );
   }
 }
 
+// render App component in main section
 ReactDOM.render(
   <App />,
   document.getElementById('main')
