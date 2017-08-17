@@ -1,39 +1,53 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 20px;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a {
-  color: $mainOrange;
+    color: $mainOrange;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 div {
-  position: relative;
+    position: relative;
 }
 
 .show {
-  display: block;
+    display: block;
 }
 
 .hide {
-  display: none;
+    display: none;
 }
 
-h3, h4, h5 {
-  margin: 0px;
-  padding: 10px 5px;
+h3,
+h4,
+h5 {
+    margin: 0px;
+    padding: 10px 5px;
+}
+
+.red {
+    color: red;
+}
+
+.orange {
+    color: $mainOrange;
+}
+
+.green {
+    color: green;
 }

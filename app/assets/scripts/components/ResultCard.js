@@ -1,3 +1,12 @@
+const ClassTypes = [
+  "result-card__default",
+  "result-card__bank",
+  "result-card__invest",
+  "result-card__loan",
+  "result-card__cc",
+  "result-card__mortgage"
+];
+
 class ResultCard extends React.Component {
   constructor(props) {
     super(props);
@@ -6,7 +15,7 @@ class ResultCard extends React.Component {
     return (
       <div className="row__large-4">
         <div className="result-card">
-          <div className="result-card__bank">
+          <div className={ClassTypes[this.props.result.typeId]}>
             <h5 className="result-card__type">{this.props.result.type}</h5>
           </div>
           <h3 className="result-card__title">{this.props.result.name}</h3>

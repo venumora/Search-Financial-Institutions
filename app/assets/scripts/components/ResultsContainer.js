@@ -5,6 +5,19 @@ class ResultsContainer extends React.Component {
         super(props);
     }
     render() {
+        let products = {
+            types: [
+                {
+                    rows: {
+                        columns: [
+                            {
+                                products: []
+                            }
+                        ]
+                    }
+                }
+            ]
+        };
         return (
             <div className="wrapper wrapper--no-padding-until-large">
                 <div className="row row--gutters row--equal-height-at-large row--gutters">

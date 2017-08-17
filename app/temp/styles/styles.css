@@ -451,44 +451,58 @@ template {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 20px;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 a {
-  color: #d59541;
+    color: #d59541;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 div {
-  position: relative;
+    position: relative;
 }
 
 .show {
-  display: block;
+    display: block;
 }
 
 .hide {
-  display: none;
+    display: none;
 }
 
-h3, h4, h5 {
-  margin: 0px;
-  padding: 10px 5px;
+h3,
+h4,
+h5 {
+    margin: 0px;
+    padding: 10px 5px;
+}
+
+.red {
+    color: red;
+}
+
+.orange {
+    color: #d59541;
+}
+
+.green {
+    color: green;
 }
 
 .search-area {
@@ -641,8 +655,17 @@ h3, h4, h5 {
 
 .flyout__unordered li {
             padding: 10px 20px;
-            border-radius: 10px;
         }
+
+.flyout__unordered li:first-child {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+.flyout__unordered li:last-child {
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
 
 .flyout__unordered li:nth-child(2n+1) {
                 background-color: #ddd;
@@ -689,6 +712,10 @@ h3, h4, h5 {
 
 .result-card__cc {
         background-color: #4A96AD;
+    }
+
+.result-card__mortgage {
+        background-color: #d59541;
     }
 
 .result-card__default {

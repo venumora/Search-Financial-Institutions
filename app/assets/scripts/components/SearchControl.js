@@ -1,5 +1,12 @@
 var $ = require('jquery');
 import AutoFlyout from './AutoFlyout.js';
+const Types = {
+  "BANK": 1,
+  "INVESTMENT": 2,
+  "LOAN": 3,
+  "CREDIT_CARD": 4,
+  "MORTGAGE": 5
+};
 
 class SearchControl extends React.Component {
 
@@ -8,7 +15,6 @@ class SearchControl extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setSearchKeyState = this.setSearchKeyState.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-
     this.state = {
       searchKey: ''
     };
@@ -66,6 +72,7 @@ class SearchControl extends React.Component {
         success: (result) => {
           const products = result.products.map(function (rObj, index) {
             rObj.id = index + 1;
+            rObj.typeId = Types[rObj.type] || 0;
             return rObj;
           });
           catalog.products = products;
@@ -89,21 +96,24 @@ class SearchControl extends React.Component {
   }
 
   render() {
+    let noOfProducts = this.props.filteredProducts.products.length;
     return (
       <div>
-        {this.props.filteredProducts.products.length > 20 && <h5>
-          Long way to go!! You have {this.props.filteredProducts.products.length} results to check, keep typing.</h5>}
-        {(this.props.filteredProducts.products.length <= 20 && this.props.filteredProducts.products.length > 1) && <h5>
-          You are close!! You have {this.props.filteredProducts.products.length} results to check.</h5>}
-        {this.props.filteredProducts.products.length === 1 && <h5>
+        {noOfProducts > 20 && <h5>
+          Long way to go!! You have <span className="orange">{noOfProducts}</span> results to check, keep typing.</h5>}
+        {(noOfProducts <= 20 && noOfProducts > 1) && <h5>
+          You are close!! You have <span className="green">{noOfProducts}</span> results to check.</h5>}
+        {noOfProducts === 1 && <h5>
           Yay!! You have found what exactly you want</h5>}
-        {this.props.filteredProducts.products.length === 0 && <h5>
-          It's time!!</h5>}
+        {(noOfProducts === 0 && !this.state.searchKey.length) && <h5>
+          Go ahead!!</h5>}
+                  {(noOfProducts === 0 && this.state.searchKey.length !== 0) && <h5>
+          Hard luck !! No results for <span className="red" >{this.state.searchKey}</span></h5>}
         <input className="search-area__input" type="text" role="search" placeholder="Search name or URL!!"
           value={this.state.searchKey}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown} />
-        <AutoFlyout ref="child" isOpen={this.props.filteredProducts.products.length ? true : false}
+        <AutoFlyout ref="child" isOpen={noOfProducts ? true : false}
           results={this.props.filteredProducts} setSearchKeyState={this.setSearchKeyState} />
       </div>
     );

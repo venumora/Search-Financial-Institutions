@@ -10009,6 +10009,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var $ = __webpack_require__(0);
 
+var Types = {
+  "BANK": 1,
+  "INVESTMENT": 2,
+  "LOAN": 3,
+  "CREDIT_CARD": 4,
+  "MORTGAGE": 5
+};
+
 var SearchControl = function (_React$Component) {
   _inherits(SearchControl, _React$Component);
 
@@ -10071,6 +10079,7 @@ var SearchControl = function (_React$Component) {
           success: function success(result) {
             var products = result.products.map(function (rObj, index) {
               rObj.id = index + 1;
+              rObj.typeId = Types[rObj.type] || 0;
               return rObj;
             });
             catalog.products = products;
@@ -10096,7 +10105,6 @@ var SearchControl = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
     _this.setSearchKeyState = _this.setSearchKeyState.bind(_this);
     _this.handleKeyDown = _this.handleKeyDown.bind(_this);
-
     _this.state = {
       searchKey: ''
     };
@@ -10106,38 +10114,57 @@ var SearchControl = function (_React$Component) {
   _createClass(SearchControl, [{
     key: 'render',
     value: function render() {
+      var noOfProducts = this.props.filteredProducts.products.length;
       return React.createElement(
         'div',
         null,
-        this.props.filteredProducts.products.length > 20 && React.createElement(
+        noOfProducts > 20 && React.createElement(
           'h5',
           null,
           'Long way to go!! You have ',
-          this.props.filteredProducts.products.length,
+          React.createElement(
+            'span',
+            { className: 'orange' },
+            noOfProducts
+          ),
           ' results to check, keep typing.'
         ),
-        this.props.filteredProducts.products.length <= 20 && this.props.filteredProducts.products.length > 1 && React.createElement(
+        noOfProducts <= 20 && noOfProducts > 1 && React.createElement(
           'h5',
           null,
           'You are close!! You have ',
-          this.props.filteredProducts.products.length,
+          React.createElement(
+            'span',
+            { className: 'green' },
+            noOfProducts
+          ),
           ' results to check.'
         ),
-        this.props.filteredProducts.products.length === 1 && React.createElement(
+        noOfProducts === 1 && React.createElement(
           'h5',
           null,
           'Yay!! You have found what exactly you want'
         ),
-        this.props.filteredProducts.products.length === 0 && React.createElement(
+        noOfProducts === 0 && !this.state.searchKey.length && React.createElement(
           'h5',
           null,
-          'It\'s time!!'
+          'Go ahead!!'
+        ),
+        noOfProducts === 0 && this.state.searchKey.length !== 0 && React.createElement(
+          'h5',
+          null,
+          'Hard luck !! No results for ',
+          React.createElement(
+            'span',
+            { className: 'red' },
+            this.state.searchKey
+          )
         ),
         React.createElement('input', { className: 'search-area__input', type: 'text', role: 'search', placeholder: 'Search name or URL!!',
           value: this.state.searchKey,
           onChange: this.handleChange,
           onKeyDown: this.handleKeyDown }),
-        React.createElement(_AutoFlyout2.default, { ref: 'child', isOpen: this.props.filteredProducts.products.length ? true : false,
+        React.createElement(_AutoFlyout2.default, { ref: 'child', isOpen: noOfProducts ? true : false,
           results: this.props.filteredProducts, setSearchKeyState: this.setSearchKeyState })
       );
     }
@@ -10334,6 +10361,15 @@ var ResultsContainer = function (_React$Component) {
     _createClass(ResultsContainer, [{
         key: "render",
         value: function render() {
+            var products = {
+                types: [{
+                    rows: {
+                        columns: [{
+                            products: []
+                        }]
+                    }
+                }]
+            };
             return React.createElement(
                 "div",
                 { className: "wrapper wrapper--no-padding-until-large" },
@@ -10372,6 +10408,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ClassTypes = ["result-card__default", "result-card__bank", "result-card__invest", "result-card__loan", "result-card__cc", "result-card__mortgage"];
+
 var ResultCard = function (_React$Component) {
   _inherits(ResultCard, _React$Component);
 
@@ -10392,7 +10430,7 @@ var ResultCard = function (_React$Component) {
           { className: "result-card" },
           React.createElement(
             "div",
-            { className: "result-card__bank" },
+            { className: ClassTypes[this.props.result.typeId] },
             React.createElement(
               "h5",
               { className: "result-card__type" },
