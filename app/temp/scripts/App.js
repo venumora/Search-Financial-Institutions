@@ -32534,7 +32534,7 @@ var AutoFlyout = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           null,
-          this.props.results.products.splice(0, 5).map(function (result) {
+          this.props.results.products.splice(0, 10).map(function (result) {
             return _react2.default.createElement(
               'li',
               { key: result.id },
