@@ -470,6 +470,10 @@ a {
   color: #d59541;
 }
 
+li {
+  list-style: none;
+}
+
 .search-area {
     width: 100%;
     margin: auto;

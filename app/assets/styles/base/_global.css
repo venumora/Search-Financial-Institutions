@@ -16,3 +16,7 @@ img {
 a {
   color: $mainOrange;
 }
+
+li {
+  list-style: none;
+}

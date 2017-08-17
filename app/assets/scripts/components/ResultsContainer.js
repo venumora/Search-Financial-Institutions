@@ -11,7 +11,9 @@ class ResultsContainer extends React.Component {
             <div className="wrapper wrapper--no-padding-until-large">
                 <div className="row row--gutters row--equal-height-at-large row--gutters">
                     {
-                        this.props.filteredProducts.products.map((result, index) => <ResultCard key={index} result={result} />)
+                        this.props.filteredProducts.products.map(
+                            (result, index) => <ResultCard key={index} result={result} />
+                        )
                     }
                 </div>
             </div>

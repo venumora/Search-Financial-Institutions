@@ -11,7 +11,7 @@ class AutoFlyout extends React.Component {
         <div>
           <ul>
             {
-                this.props.results.products.splice(0,10).map(result =>
+                this.props.results.products.slice(0,10).map(result =>
                 <li key={result.id}>{result.name}</li>
             )}
           </ul>
