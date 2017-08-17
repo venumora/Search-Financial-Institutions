@@ -1,0 +1,46 @@
+.result-card {
+    border: 2px solid $mainOrange;
+    &__bank {
+        background-color: $bankColor;
+    }
+    &__loan {
+        background-color: $loanColor;
+    }
+    &__invest {
+        background-color: $investColor;
+    }
+    &__cc {
+        background-color: $ccColor;
+    }
+    &__default {
+        background-color: $defaultColor;
+    }
+    &__type {
+        color: $white;
+        font-size: 2rem;
+        @mixin atMedium {
+            font-size: 1rem;
+        }
+    }
+    &__title {
+        color: $mainOrange;
+        font-size: 4rem;
+        font-weight: 400;
+        @mixin atMedium {
+            font-size: 2rem;
+            font-weight: 100;
+        }
+    }
+    &__link {
+        text-decoration: none;
+        color: $mainBlue;
+        padding: 10px 5px;
+        font-size: 2rem;
+        @mixin atMedium {
+            font-size: 1rem;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

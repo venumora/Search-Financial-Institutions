@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import ResultCard from './ResultCard.js';
 
 class ResultsContainer extends React.Component {

@@ -474,31 +474,59 @@ li {
   list-style: none;
 }
 
+div {
+  position: relative;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+h3, h4, h5 {
+  margin: 0px;
+  padding: 10px 5px;
+}
+
 .search-area {
     width: 100%;
     margin: auto;
+    font-size: 2rem;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
 
 .search-area {
-        width: 50%
+        width: 50%;
+        font-size: inherit
 }
   }
 
 .search-area__input {
         width: 100%;
-        height: 50px;
+        height: 100px;
         border: 2px solid #d59541;
         border-radius: 10px;
-        font-size: 1.5rem;
+        font-size: 3rem;
+        padding: 10px;
     }
+
+@media (min-width: 1000px) {
+
+.search-area__input {
+            height: 50px;
+            font-size: 1.5rem
+    }
+  }
 
 .page-section {
   padding: 1.2rem 0;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
 
 .page-section {
     padding: 4.5rem 0
@@ -509,7 +537,7 @@ li {
     padding-bottom: 0;
   }
 
-@media (min-width: 1010px) {
+@media (min-width: 1200px) {
 
 .page-section--no-b-padding-until-large {
       padding-bottom: 4.5rem
@@ -534,14 +562,14 @@ li {
         margin-bottom: 1rem;
     }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
         .row__large-4 {
             float: left;
             width: 50%;
         }
   }
 
-@media (min-width: 1010px) {
+@media (min-width: 1200px) {
         .row__large-4 {
             float: left;
             width: 33.33%;
@@ -550,7 +578,7 @@ li {
 
 /* Begin Equal Height Rules */
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
 
 .row--equal-height-at-medium {
             display: -webkit-box;
@@ -584,7 +612,7 @@ li {
     padding-right: 0;
   }
 
-@media (min-width: 1010px) {
+@media (min-width: 1200px) {
 
 .wrapper--no-padding-until-large {
       padding-left: 18px;
@@ -596,3 +624,117 @@ li {
     padding-left: 0;
     padding-right: 0;
   }
+
+.flyout {
+    border: 1px solid #333;
+    position: absolute;
+    background-color: #FFF;
+    z-index: 10;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.flyout__unordered {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.flyout__unordered li {
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+.flyout__unordered li:nth-child(2n+1) {
+                background-color: #ddd;
+            }
+
+.flyout__unordered li a {
+                text-decoration: none;
+                display: block;
+                color: #2f5572;
+                font-size: 2.5rem;
+            }
+
+@media (min-width: 1000px) {
+
+.flyout__unordered li a {
+                    font-size: 1rem
+            }
+  }
+
+.flyout__unordered li:hover,
+            .flyout__unordered li.focused {
+                background-color: #2f5572;
+            }
+
+.flyout__unordered li:hover a, .flyout__unordered li.focused a {
+                    color: #FFF;
+                }
+
+.result-card {
+    border: 2px solid #d59541;
+}
+
+.result-card__bank {
+        background-color: #558C89;
+    }
+
+.result-card__loan {
+        background-color: #D9853B;
+    }
+
+.result-card__invest {
+        background-color: #7D1935;
+    }
+
+.result-card__cc {
+        background-color: #4A96AD;
+    }
+
+.result-card__default {
+        background-color: #74AFAD;
+    }
+
+.result-card__type {
+        color: #FFF;
+        font-size: 2rem;
+    }
+
+@media (min-width: 1000px) {
+
+.result-card__type {
+            font-size: 1rem
+    }
+  }
+
+.result-card__title {
+        color: #d59541;
+        font-size: 4rem;
+        font-weight: 400;
+    }
+
+@media (min-width: 1000px) {
+
+.result-card__title {
+            font-size: 2rem;
+            font-weight: 100
+    }
+  }
+
+.result-card__link {
+        text-decoration: none;
+        color: #2f5572;
+        padding: 10px 5px;
+        font-size: 2rem;
+    }
+
+@media (min-width: 1000px) {
+
+.result-card__link {
+            font-size: 1rem
+    }
+  }
+
+.result-card__link:hover {
+            text-decoration: underline;
+        }

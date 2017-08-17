@@ -20,3 +20,20 @@ a {
 li {
   list-style: none;
 }
+
+div {
+  position: relative;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+h3, h4, h5 {
+  margin: 0px;
+  padding: 10px 5px;
+}

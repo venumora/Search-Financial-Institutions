@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import SearchControl from './components/SearchControl.js';
 import ResultsContainer from './components/ResultsContainer.js';
 

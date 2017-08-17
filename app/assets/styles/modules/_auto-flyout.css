@@ -1,0 +1,35 @@
+.flyout {
+    border: 1px solid $darkGray;
+    position: absolute;
+    background-color: #FFF;
+    z-index: 10;
+    width: 100%;
+    border-radius: 10px;
+    &__unordered {
+        margin: 0px;
+        padding: 0px;
+        & li {
+            padding: 10px 20px;
+            border-radius: 10px;
+            &:nth-child(2n+1) {
+                background-color: #ddd;
+            }
+            & a {
+                text-decoration: none;
+                display: block;
+                color: $mainBlue;
+                font-size: 2.5rem;
+                @mixin atMedium {
+                    font-size: 1rem;
+                }
+            }
+            &:hover,
+            &.focused {
+                background-color: #2f5572;
+                & a {
+                    color: #FFF;
+                }
+            }
+        }
+    }
+}

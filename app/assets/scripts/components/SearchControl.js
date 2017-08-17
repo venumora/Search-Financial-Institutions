@@ -1,6 +1,4 @@
-var React = require('react'),
-  ReactDOM = require('react-dom'),
-  $ = require('jquery');
+var $ = require('jquery');
 import AutoFlyout from './AutoFlyout.js';
 
 class SearchControl extends React.Component {
@@ -8,17 +6,42 @@ class SearchControl extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.setSearchKeyState = this.setSearchKeyState.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
 
     this.state = {
       searchKey: ''
     };
   }
+  handleKeyDown = (event) => {
+    let that = this;
+    if (this.props.filteredProducts.products.length ||
+        event.target.value.length === 0) {
+      this.refs.child.showFlyout();
+    } else {
+      this.refs.child.hideFlyout();
+    }
+    if (40 === event.which) {
+      $(event.target).next("div").find('a:first').focus();
+      event.preventDefault();
+    } else if (27 === event.which) {
+      this.setState({ searchKey: '' });
+      setTimeout(function () {
+        that.handleChange(event);
+      }, 100);
+      event.preventDefault();
+    }
+  }
+  setSearchKeyState = (event) => {
+    this.setState({ searchKey: event.target.innerText });
+    this.handleChange(event);
+  }
   filterBasedOnKey = (searchKey) => {
     let filteredProducts = {
       products: []
     },
-      key = searchKey.toLowerCase();
-    if (searchKey) {
+      key = searchKey.trim().toLowerCase();
+    if (key) {
       filteredProducts.products =
         this.props.catalog.products.filter(
           product => (product.name.toLowerCase().indexOf(key) !== -1 ||
@@ -30,10 +53,11 @@ class SearchControl extends React.Component {
   }
   handleChange = function (event) {
     let that = this,
-      searchKey = event.target.value,
+      searchKey = event.target ? (event.target.value || event.target.innerText) : '',
       catalog = {
         products: []
       };
+    searchKey = searchKey || '';
     this.setState({ searchKey });
     if (!this.props.catalog.products.length) {
       $.ajax({
@@ -65,13 +89,22 @@ class SearchControl extends React.Component {
   }
 
   render() {
-    let searchKey = this.state.searchKey;
     return (
       <div>
-        <input className="search-area__input" type="text" role="search" placeholder="Search here!!"
-          value={searchKey}
-          onChange={this.handleChange} />
-        <AutoFlyout results={this.props.filteredProducts} />
+        {this.props.filteredProducts.products.length > 20 && <h5>
+          Long way to go!! You have {this.props.filteredProducts.products.length} results to check, keep typing.</h5>}
+        {(this.props.filteredProducts.products.length <= 20 && this.props.filteredProducts.products.length > 1) && <h5>
+          You are close!! You have {this.props.filteredProducts.products.length} results to check.</h5>}
+        {this.props.filteredProducts.products.length === 1 && <h5>
+          Yay!! You have found what exactly you want</h5>}
+        {this.props.filteredProducts.products.length === 0 && <h5>
+          It's time!!</h5>}
+        <input className="search-area__input" type="text" role="search" placeholder="Search name or URL!!"
+          value={this.state.searchKey}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
+        <AutoFlyout ref="child" isOpen={this.props.filteredProducts.products.length ? true : false}
+          results={this.props.filteredProducts} setSearchKeyState={this.setSearchKeyState} />
       </div>
     );
   }
