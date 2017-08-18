@@ -26,7 +26,7 @@ class SearchControl extends React.Component {
     // When down arrow is press while typing
     // focus to first item in the list.
     if (40 === event.which) {
-      $(event.target).next("div").find('a:first').focus();
+      $(event.target).next(".flyout").find('a:first').focus();
       event.preventDefault();
     } else if (27 === event.which) {
       this.setState({ searchKey: '' });
@@ -105,10 +105,11 @@ class SearchControl extends React.Component {
     let noOfProducts = this.props.filteredProducts.products.length;
     return (
       <div>
-        {noOfProducts > 20 && <h5>
-          Long way to go!! You have <span className="orange">{noOfProducts}</span> results to check, keep typing.</h5>}
-        {(noOfProducts <= 20 && noOfProducts > 1) && <h5>
-          You are close!! You have <span className="green">{noOfProducts}</span> results to check.</h5>}
+        {noOfProducts > 15 && <h5>
+          Long way to go!! You have <span className="orange">{noOfProducts}</span> results to check, keep typing.
+          Showing only top 15 from all categories.</h5>}
+        {(noOfProducts <= 15 && noOfProducts > 1) && <h5>
+          You are close!! You have <span className="green">{noOfProducts}</span> results to check</h5>}
         {noOfProducts === 1 && <h5>
           Yay!! You have found what exactly you want</h5>}
         {(noOfProducts === 0 && !this.state.searchKey.length) && <h5>

@@ -10028,7 +10028,7 @@ var SearchControl = function (_React$Component) {
       // When down arrow is press while typing
       // focus to first item in the list.
       if (40 === event.which) {
-        $(event.target).next("div").find('a:first').focus();
+        $(event.target).next(".flyout").find('a:first').focus();
         event.preventDefault();
       } else if (27 === event.which) {
         _this.setState({ searchKey: '' });
@@ -10122,7 +10122,7 @@ var SearchControl = function (_React$Component) {
       return React.createElement(
         'div',
         null,
-        noOfProducts > 20 && React.createElement(
+        noOfProducts > 15 && React.createElement(
           'h5',
           null,
           'Long way to go!! You have ',
@@ -10131,9 +10131,9 @@ var SearchControl = function (_React$Component) {
             { className: 'orange' },
             noOfProducts
           ),
-          ' results to check, keep typing.'
+          ' results to check, keep typing. Showing only top 15 from all categories.'
         ),
-        noOfProducts <= 20 && noOfProducts > 1 && React.createElement(
+        noOfProducts <= 15 && noOfProducts > 1 && React.createElement(
           'h5',
           null,
           'You are close!! You have ',
@@ -10142,7 +10142,7 @@ var SearchControl = function (_React$Component) {
             { className: 'green' },
             noOfProducts
           ),
-          ' results to check.'
+          ' results to check'
         ),
         noOfProducts === 1 && React.createElement(
           'h5',
@@ -10199,6 +10199,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var $ = __webpack_require__(0);
+var SearchCatText = ["Unknown types", "Banks", "Investments", "Loans", "Credit cards", "Mortgages"];
 
 // Search drop down component
 
@@ -10226,27 +10227,37 @@ var AutoFlyout = function (_React$Component) {
 
     _this.handleFocus = function (event) {
       $(".focused").removeClass('focused');
-      $(event.target).parent('li').addClass('focused');
+      $(event.target).parent('div').addClass('focused');
     };
 
     _this.handleKeyDown = function (event) {
       var target = $(event.target);
       // Up arrow, focuses previous item and rotates when reaches first item.
       if (38 === event.which) {
-        var prevLi = target.parent('li').prev('li');
-        if (prevLi.length) {
-          prevLi.find('a').focus();
+        var prevDiv = target.parent('div').prev('div');
+        if (prevDiv.length) {
+          prevDiv.find('a:visible').focus();
         } else {
-          target.parent('li').parent('ul').find('li:last a').focus();
+          var prevLi = target.parents('li').prev('li');
+          if (prevLi.length) {
+            prevLi.find('a:visible:last').focus();
+          } else {
+            target.parents('ul').find('a:visible:last').focus();
+          }
         }
         event.preventDefault();
       } else if (40 === event.which) {
         // Down arrow, focuses next item and rotates when reaches last item.
-        var nextLi = target.parent('li').next('li');
-        if (nextLi.length) {
-          nextLi.find('a').focus();
+        var nextDiv = target.parent('div:visible').next('div:visible');
+        if (nextDiv.length) {
+          nextDiv.find('a').focus();
         } else {
-          target.parent('li').parent('ul').find('li:first a').focus();
+          var nextLi = target.parents('li').next('li');
+          if (nextLi.length) {
+            nextLi.find('a:first').focus();
+          } else {
+            target.parents('ul').find('a:first').focus();
+          }
         }
         event.preventDefault();
       } else if (13 === event.which) {
@@ -10280,24 +10291,57 @@ var AutoFlyout = function (_React$Component) {
 
 
   _createClass(AutoFlyout, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
+      var productTypes = [];
+      this.props.results.products.slice(0, 15).forEach(function (product) {
+        var exP = $.grep(productTypes, function (p) {
+          return p.id === product.typeId;
+        });
+        if (!exP.length) {
+          productTypes.push({ typeId: product.typeId, count: 1 });
+        } else {
+          exP[0].count++;
+        }
+      });
+      productTypes.sort(function (a, b) {
+        return b.count - a.count;
+      });
       return React.createElement(
-        'div',
+        "div",
         { className: this.props.isOpen && this.state.isOpen ? 'flyout show' : 'flyout hide' },
         React.createElement(
-          'ul',
-          { className: 'flyout__unordered' },
-          this.props.results.products.slice(0, 15).map(function (result) {
+          "ul",
+          { className: "flyout__unordered" },
+          productTypes.map(function (product) {
             return React.createElement(
-              'li',
-              { key: result.id },
-              React.createElement(
-                'a',
-                { href: '#', onClick: _this2.handleClick, onFocus: _this2.handleFocus, onKeyDown: _this2.handleKeyDown, id: "searchResult" + result.id },
-                result.name
+              "li",
+              { key: product.typeId },
+              product.count !== 0 && React.createElement(
+                "label",
+                { className: "show" },
+                SearchCatText[product.typeId]
+              ),
+              product.count !== 0 && React.createElement(
+                "div",
+                { className: "flyout__unordered-inner" },
+                _this2.props.results.products.slice(0, 15).map(function (result, index) {
+                  return product.typeId === result.typeId && React.createElement(
+                    "div",
+                    { key: result.id },
+                    React.createElement(
+                      "a",
+                      { href: "#", className: "show",
+                        onClick: _this2.handleClick,
+                        onFocus: _this2.handleFocus,
+                        onKeyDown: _this2.handleKeyDown,
+                        id: "searchResult_" + result.id },
+                      result.name
+                    )
+                  );
+                })
               )
             );
           })
