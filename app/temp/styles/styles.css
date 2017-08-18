@@ -635,45 +635,48 @@ h5 {
     }
 
 .flyout__unordered li {
-            padding: 10px 20px;
+            padding: 5px 10px;
         }
 
-.flyout__unordered li:first-child {
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
+.flyout__unordered li label {
+                padding-bottom: 5px;
             }
 
-.flyout__unordered li:last-child {
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
+.flyout__unordered-inner {
+            margin: 0px;
+            padding: 0px;
+        }
+
+.flyout__unordered-inner div {
+                padding: 5px 10px;
+                margin: 0 10px;
             }
 
-.flyout__unordered li:nth-child(2n+1) {
-                background-color: #ddd;
-            }
+.flyout__unordered-inner div:nth-child(2n+1) {
+                    background-color: #ddd;
+                }
 
-.flyout__unordered li a {
-                text-decoration: none;
-                display: block;
-                color: #2f5572;
-                font-size: 2.5rem;
-            }
+.flyout__unordered-inner div a {
+                    text-decoration: none;
+                    color: #2f5572;
+                    font-size: 2.5rem;
+                }
 
 @media (min-width: 1000px) {
 
-.flyout__unordered li a {
-                    font-size: 1rem
-            }
+.flyout__unordered-inner div a {
+                        font-size: 1rem
+                }
   }
 
-.flyout__unordered li:hover,
-            .flyout__unordered li.focused {
-                background-color: #2f5572;
-            }
-
-.flyout__unordered li:hover a, .flyout__unordered li.focused a {
-                    color: #FFF;
+.flyout__unordered-inner div:hover,
+                .flyout__unordered-inner div.focused {
+                    background-color: #2f5572;
                 }
+
+.flyout__unordered-inner div:hover a, .flyout__unordered-inner div.focused a {
+                        color: #FFF;
+                    }
 
 .result-card {
     border: 2px solid #d59541;

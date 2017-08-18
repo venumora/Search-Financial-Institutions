@@ -9,32 +9,34 @@
         margin: 0px;
         padding: 0px;
         & li {
-            padding: 10px 20px;
-            &:first-child {
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
+            padding: 5px 10px;
+            & label {
+                padding-bottom: 5px;
             }
-            &:last-child {
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
-            }
-            &:nth-child(2n+1) {
-                background-color: #ddd;
-            }
-            & a {
-                text-decoration: none;
-                display: block;
-                color: $mainBlue;
-                font-size: 2.5rem;
-                @mixin atMedium {
-                    font-size: 1rem;
+        }
+        &-inner {
+            margin: 0px;
+            padding: 0px;
+            & div {
+                padding: 5px 10px;
+                margin: 0 10px;
+                &:nth-child(2n+1) {
+                    background-color: #ddd;
                 }
-            }
-            &:hover,
-            &.focused {
-                background-color: #2f5572;
                 & a {
-                    color: #FFF;
+                    text-decoration: none;
+                    color: $mainBlue;
+                    font-size: 2.5rem;
+                    @mixin atMedium {
+                        font-size: 1rem;
+                    }
+                }
+                &:hover,
+                &.focused {
+                    background-color: #2f5572;
+                    & a {
+                        color: #FFF;
+                    }
                 }
             }
         }
